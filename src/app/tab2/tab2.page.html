@@ -1,0 +1,40 @@
+<app-header name="Лабораторна робота 1"></app-header>
+<ion-content [fullscreen]="true">
+  <ion-card color="light">
+    <ion-card-title>Завдання 3</ion-card-title>
+    <ion-card-content>
+      <p>
+        На заданому проміжку чисел [a, b] підрахуйте кількість чисел, які
+        при діленні на 8 дають в остачі 7, якщо їх перші цифри парні. Потрібно
+        вивести як самі числа так і результати обрахунку.
+      </p>
+      
+      <ion-item>
+        <ion-input
+          label="Введіть a"
+          type="number"
+          labelPlacement="stacked"
+          id="number1"
+          value="0"
+          [(ngModel)]="a"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Введіть b"
+          type="number"
+          labelPlacement="stacked"
+          id="number1"
+          value="0"
+          [(ngModel)]="b"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-button expand="full" (click)="calculate()">Обчислити</ion-button>
+      <p>Кількість чисел: {{ count }}</p>
+      <p>Числа: {{ numbers.join(', ') }}</p>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

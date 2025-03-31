@@ -1,0 +1,72 @@
+<app-header name="Лабораторна робота №2"></app-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>Список виконаних справ</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list>
+        <ion-card *ngFor="let task of toDoList.records.filter(isTaskCompleted); index as i">
+          
+          <ion-card-header>
+            <ion-card-title>{{task.title}}</ion-card-title>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Час: {{task.timeDate}}</ion-label>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label>Складність: {{task.difficulty}}</ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Справа виконана: {{task.isCompleted ? 'Так' : 'Ні'}}</ion-label>
+            </ion-item>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
+    
+  </ion-card>
+
+  <ion-card>
+    
+    <ion-card-header>
+      <ion-card-title>Список невиконаних справ</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list>
+        <ion-card *ngFor="let task of toDoList.records.filter(isTaskNotCompleted); index as i">
+
+          <ion-card-header>
+            <ion-card-title>{{task.title}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Час: {{task.timeDate}}</ion-label>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label>Складність: {{task.difficulty}}</ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Справа виконана: {{task.isCompleted ? 'Так' : 'Ні'}}</ion-label>
+            </ion-item>
+          </ion-card-content>
+          
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
+
+  </ion-card>
+
+  <canvas #lineCanvas></canvas>
+</ion-content>

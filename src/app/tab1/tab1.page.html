@@ -1,0 +1,55 @@
+<app-header name="Лабораторна робота 1"></app-header>
+<ion-content [fullscreen]="true">
+  <ion-card color="light">
+    <ion-card-title>Завдання 1</ion-card-title>
+    <ion-card-content>
+      <p>
+        Задано три числа. Знайти суму квадратів тих з них, які більше 10,
+        якщо їхня сума непарна.
+      </p>
+
+      <ion-item>
+        <ion-input
+          label="Число 1"
+          type="number"
+          labelPlacement="stacked"
+          id="number1"
+          value="0"
+          #Input1
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Число 2"
+          type="number"
+          labelPlacement="stacked"
+          id="number2"
+          value="0"
+          #Input2
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Число 3"
+          type="number"
+          labelPlacement="stacked"
+          id="number3"
+          value="0"
+          #Input3
+        ></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="calculateSum(Input1.value, Input2.value, Input3.value)">
+        Розрахунок
+      </ion-button>
+    
+      <ion-item>
+        <p>Результат обчислення: {{ result }}</p>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
