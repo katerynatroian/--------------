@@ -1,64 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, IonItem, IonCardHeader, IonCard, IonCardContent } from '@ionic/angular/standalone';
-import { KitchenAppliance } from './Abstract/KitchenAppliance';
-import { Factory } from './Abstract/Factory';
+import { WaterTransport } from '../classes/transport/waterTransport';
+import { Kater } from '../classes/transport/Kater';
+import { Lodka } from '../classes/transport/Lodka';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem, IonButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonList, IonLabel } from '@ionic/angular/standalone';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-abstract-class',
   templateUrl: './abstract-class.page.html',
   styleUrls: ['./abstract-class.page.scss'],
   standalone: true,
-  imports: [IonCardContent, IonCard, IonCardHeader, IonItem, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent]
+  imports: [
+    HeaderComponent, IonLabel, IonList, IonCard, IonCardContent, IonCardTitle, IonCardHeader, 
+    IonButton, IonItem, IonInput, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule
+  ]
 })
 export class AbstractClassPage implements OnInit {
-  
-  ngOnInit() {
-    this.load()
-  }
-  maxPower: number = 0;
-  maxPowerName: string = '';
-  data: any = [];
-  appliances: KitchenAppliance[] = [];
-  url = 'https://api.jsonbin.io/v3/b/67d9b7a68561e97a50eebeaf';
-  
-  async load() {
-    this.data = [];
-    this.appliances = [];
-    fetch(this.url)
-    .then((res)=> res.json())
-    .then((json)=> {
-      this.data = json;
-      this.data = this.data.record;
-      let i = 0;
-      while(this.data[i]!=undefined){
-        let currentAppliance = Factory.developKitchenAppliance(
-          this.data[i]['name'],
-          this.data[i]['power'],
-          this.data[i]['weight'],
-          this.data[i]['slotCount'] ?? this.data[i]['bladeCount']
-        );
-        this.getMaxPower(currentAppliance.power, currentAppliance.name)
-        this.appliances.push(currentAppliance);
-        ++i;
-      }
-    });
-  }
+  transports: WaterTransport[] = [];
+  fastestCount: number = 5;  // Додано для уникнення помилки
 
-  getMaxPower(currentPower: number, name: string){
-    if (currentPower > this.maxPower){
-      this.maxPower = currentPower;
-      this.maxPowerName = name;
+  async loadTransports() {
+    try {
+      const response = await fetch('assets/transport.json');
+      const json = await response.json();
+
+      this.transports = json.waterTransport.map((data: any) => {
+        return data.type === "Катер"
+          ? new Kater(data.name, data.speed, data.capacity, data.engineType)
+          : new Lodka(data.name, data.speed, data.capacity, data.isRowing);
+      });
+
+      this.findFastest(this.fastestCount); // Автоматично позначаємо найшвидші після завантаження
+    } catch (error) {
+      console.error("Помилка завантаження транспорту:", error);
     }
   }
 
-  isMaxPower(appliance: KitchenAppliance): boolean {
-    return appliance.name === this.maxPowerName;
-  }
-
+  findFastest(n: any) {
+    const count = Number(n) || 1;
   
-  constructor() { }
-
+    // Сортуємо за швидкістю
+    const fastest = [...this.transports]
+      .sort((a, b) => b.getSpeed() - a.getSpeed())
+      .slice(0, count);
+  
+    // Позначаємо найшвидші
+    this.transports.forEach(tr => tr.isFastest = fastest.includes(tr));
+  }  
+  
+  ngOnInit(): void {
+    this.loadTransports();
+  }
 }

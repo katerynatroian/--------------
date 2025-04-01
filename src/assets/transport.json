@@ -1,0 +1,110 @@
+{
+    "waterTransport": [
+      {
+        "type": "Катер",
+        "name": "SpeedBoat 3000",
+        "speed": 85.5,
+        "capacity": 6,
+        "engineType": "Petrol"
+      },
+      {
+        "type": "Катер",
+        "name": "Sea Hawk",
+        "speed": 70.0,
+        "capacity": 8,
+        "engineType": "Diesel"
+      },
+      {
+        "type": "Катер",
+        "name": "Ocean Runner",
+        "speed": 90.2,
+        "capacity": 10,
+        "engineType": "Electric"
+      },
+      {
+        "type": "Катер",
+        "name": "Wave Crusher",
+        "speed": 75.4,
+        "capacity": 5,
+        "engineType": "Hybrid"
+      },
+      {
+        "type": "Катер",
+        "name": "Thunder Marine",
+        "speed": 95.0,
+        "capacity": 7,
+        "engineType": "Petrol"
+      },
+      {
+        "type": "Катер",
+        "name": "Aqua Storm",
+        "speed": 88.3,
+        "capacity": 6,
+        "engineType": "Diesel"
+      },
+      {
+        "type": "Лодка",
+        "name": "River Explorer",
+        "speed": 12.5,
+        "capacity": 2,
+        "isRowing": true
+      },
+      {
+        "type": "Лодка",
+        "name": "Lake Glide",
+        "speed": 10.0,
+        "capacity": 3,
+        "isRowing": false
+      },
+      {
+        "type": "Лодка",
+        "name": "Blue Wave",
+        "speed": 8.4,
+        "capacity": 4,
+        "isRowing": true
+      },
+      {
+        "type": "Лодка",
+        "name": "Fisherman’s Friend",
+        "speed": 11.2,
+        "capacity": 3,
+        "isRowing": true
+      },
+      {
+        "type": "Лодка",
+        "name": "Coastal Drift",
+        "speed": 9.8,
+        "capacity": 5,
+        "isRowing": false
+      },
+      {
+        "type": "Лодка",
+        "name": "Sunny Bay",
+        "speed": 7.6,
+        "capacity": 2,
+        "isRowing": true
+      },
+      {
+        "type": "Лодка",
+        "name": "Wild Waters",
+        "speed": 13.0,
+        "capacity": 4,
+        "isRowing": false
+      },
+      {
+        "type": "Катер",
+        "name": "Ocean King",
+        "speed": 85.7,
+        "capacity": 9,
+        "engineType": "Electric"
+      },
+      {
+        "type": "Катер",
+        "name": "Marine Speedster",
+        "speed": 78.9,
+        "capacity": 6,
+        "engineType": "Hybrid"
+      }
+    ]
+  }
+  

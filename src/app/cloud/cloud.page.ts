@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, AlertController, LoadingController, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonItem, IonCardContent, IonList } from '@ionic/angular/standalone';
-import { schedule } from '../class/schedule';
-import { scheduleRec } from '../class/scheduleRec';
+import { schedule } from '../classes/books/schedule';
+import { scheduleRec } from '../classes/books/scheduleRec';
 import { HeaderComponent } from '../header/header.component';
 import { Chart, registerables } from 'chart.js';
 
