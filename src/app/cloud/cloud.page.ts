@@ -1,156 +1,110 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClient } from '@angular/common/http'; 
+import { Chart, registerables } from 'chart.js';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, AlertController, LoadingController, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonItem, IonCardContent, IonList } from '@ionic/angular/standalone';
-import { schedule } from '../classes/books/schedule';
-import { scheduleRec } from '../classes/books/scheduleRec';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem, IonButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonList, IonLabel } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
-import { Chart, registerables } from 'chart.js';
-
+import { Book } from '../classes/books/book';
+import { BookList } from '../classes/books/book_list';
 
 @Component({
   selector: 'app-cloud',
   templateUrl: './cloud.page.html',
   styleUrls: ['./cloud.page.scss'],
   standalone: true,
-  imports: [IonList, IonCardContent, IonItem, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonLabel, IonList, IonCard, IonCardContent, IonCardTitle, HeaderComponent, IonCardHeader, IonButton, IonItem, IonInput, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HttpClientModule]
 })
-
 export class CloudPage implements OnInit {
-  @ViewChild('lineCanvas') private lineCanvas?: ElementRef; 
-  toDoList = new schedule();
+  @ViewChild('barCanvas') private barCanvas?: ElementRef;
 
-  dataurl = 'https://api.jsonbin.io/v3/b/67c9624aacd3cb34a8f5eb07 ';
+  books = new BookList();
+  overdueBooks: Book[] = [];
+  onTimeBooks: Book[] = [];
+  dataUrl = 'assets/books.json'; // Шлях до файлу JSON з даними
   loading: any;
-  linechart: any;
-
-
-lineChartMethod() {
-  if (this.linechart instanceof Chart) {
-      this.linechart.destroy();
-  }
-
-  this.linechart = new Chart(this.lineCanvas?.nativeElement, {
-      type: 'bar',
-      data: {
-          // Дані по Осі X
-          labels: this.toDoList.difficultyGroups.map((group) => group.difficulty.toString()),
-          datasets: [
-              {
-                  label: 'Кількість справ за складністю',
-                  borderColor: 'rgba(75,192,192,1)',
-                  // Дані по Осі Y
-                  data: this.toDoList.difficultyGroups.map((group) => group.count),
-                  backgroundColor: 'rgba(153,102,255,0.2)',
-              },
-          ],
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true,
-                  title: {
-                      display: true,
-                      text: 'Кількість справ',
-                  },
-                  ticks: {
-                    stepSize: 1, 
-                    precision: 0 
-                }
-              },
-              x: {
-                  title: {
-                      display: true,
-                      text: 'Складність',
-                  },
-              },
-          },
-          plugins: {
-              tooltip: {
-                  callbacks: {
-                      label: (tooltipItem) => {
-                          const index = tooltipItem.dataIndex; 
-                          const group = this.toDoList.difficultyGroups[index];
-                          const titles = group.titles.join(', '); 
-                          return [
-                            `Кількість: ${group.count}`,
-                            `Завдання: ${titles}`
-                        ];
-                      },
-                      title: (tooltipItems) => {
-                          const index = tooltipItems[0].dataIndex;
-                          return `Складність: ${this.toDoList.difficultyGroups[index].difficulty}`;
-                      }
-                  }
-              }
-          }
-      },
-  });
-}
+  barChart: any;
 
   constructor(
     public loadingController: LoadingController,
-    private alertController: AlertController
-  ){
-    Chart.register(...registerables)
+    private alertController: AlertController,
+    private http: HttpClient
+  ) { 
+    Chart.register(...registerables);
   }
 
-  async presentAlert(msg: string){
+  async presentAlert(msg: string) {
     const alert = await this.alertController.create({
-      header: 'Помилка',
+      header: 'Error',
       message: msg,
       buttons: ['Ok'],
-
     });
-
     await alert.present();
   }
 
-  async load(){
+  // Завантаження даних з JSON
+  async load() {
     this.loading = await this.loadingController.create({
       spinner: 'crescent',
       message: 'Loading...',
     });
-
     await this.loading.present();
-    let data: any = [];
-    // Отримання даних асинхронно
-    fetch(this.dataurl)
+
+    fetch(this.dataUrl)
       .then((res) => res.json())
       .then((json) => {
-        data = json;
-        data = data.record;
+        let data = json.record;
         try {
-          let i = 0;
-          while (data[i] != undefined) {
-              if (data[i].hasOwnProperty('difficulty')) {
-                  this.toDoList.addscheduleRec(data[i] as scheduleRec);
-              } else throw new Error('Error load file');
-              i++;
-          }
-      } catch (e) {
-          this.presentAlert('Помилка читання JSON');
+          data.forEach((item: any) => {
+            if (item.hasOwnProperty('issueDate') && item.hasOwnProperty('termDays')) {
+              this.books.addBook(new Book(item.code, item.readerId, new Date(item.issueDate), item.termDays));
+            } else throw new Error('Invalid book data');
+          });
+        } catch (e) {
+          this.presentAlert('Error reading JSON');
           console.log((e as Error).message);
-      }
-      
-      this.toDoList.groupByDifficulty();
-      console.log(this.toDoList.difficultyGroups)
-      this.lineChartMethod();
-      this.loading.dismiss();
+        }
+
+        // Розділення на прострочені і вчасно
+        const { overdue, onTime } = this.books.splitBooksByDueDate(new Date());
+        this.overdueBooks = overdue;
+        this.onTimeBooks = onTime;
+
+        // Побудова графіку
+        this.drawBarChart();
+        this.loading.dismiss();
       });
   }
 
-  ngOnInit() {
-    // this.load();
-    this.load().then(() => {
-      console.log('Records after load:', this.toDoList);
-  });
+  // Побудова графіка
+  drawBarChart() {
+    if (this.barChart instanceof Chart) {
+      this.barChart.destroy();
+    }
+
+    const readerCounts: { [key: string]: number } = {};
+    this.books.books.forEach(book => {
+      readerCounts[book.readerId] = (readerCounts[book.readerId] || 0) + 1;
+    });
+
+    this.barChart = new Chart(this.barCanvas?.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(readerCounts),
+        datasets: [{
+          label: 'Кількість книг у читачів',
+          data: Object.values(readerCounts),
+          backgroundColor: 'rgba(153, 102, 255, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      }
+    });
   }
 
-  isTaskCompleted(record: scheduleRec){
-    return record.isCompleted == true
-  }
-  isTaskNotCompleted(record: scheduleRec){
-    return record.isCompleted == false
+  ngOnInit() {
+    this.load();
   }
 }
