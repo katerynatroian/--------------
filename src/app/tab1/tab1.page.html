@@ -1,55 +1,32 @@
 <app-header name="Лабораторна робота 1"></app-header>
 <ion-content [fullscreen]="true">
   <ion-card color="light">
-    <ion-card-title>Завдання 1</ion-card-title>
+    <ion-card-header>
+      <ion-card-title>Завдання 1</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <p>
-        Задано три числа. Знайти суму квадратів тих з них, які більше 10,
-        якщо їхня сума непарна.
+        Задано три числа. Якщо вони більші за 5, то знайти їхню суму. 
+        В іншому випадку - добуток їхніх цифр, якщо його сума непарна.
       </p>
 
       <ion-item>
-        <ion-input
-          label="Число 1"
-          type="number"
-          labelPlacement="stacked"
-          id="number1"
-          value="0"
-          #Input1
-        ></ion-input>
+        <ion-input label="Перше число" labelPlacement="stacked" type="number" id="a" value="1" #Inputa></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          label="Число 2"
-          type="number"
-          labelPlacement="stacked"
-          id="number2"
-          value="0"
-          #Input2
-        ></ion-input>
+        <ion-input label="Друге число" labelPlacement="stacked" type="number" id="b" value="2" #Inputb></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          label="Число 3"
-          type="number"
-          labelPlacement="stacked"
-          id="number3"
-          value="0"
-          #Input3
-        ></ion-input>
+        <ion-input label="Третє число" labelPlacement="stacked" type="number" id="c" value="3" #Inputc></ion-input>
       </ion-item>
 
-      <ion-button expand="block" (click)="calculateSum(Input1.value, Input2.value, Input3.value)">
-        Розрахунок
-      </ion-button>
-    
+      <ion-button expand="block" (click)="calculate(Inputa.value, Inputb.value, Inputc.value)">Розрахунок</ion-button>
+
       <ion-item>
-        <p>Результат обчислення: {{ result }}</p>
+        <p>Результат обчислень: {{ result }}</p>
       </ion-item>
-
     </ion-card-content>
   </ion-card>
 </ion-content>
-

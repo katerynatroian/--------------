@@ -1,36 +1,49 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonLabel, IonItem, IonCard, IonCardContent, IonCardTitle, IonInput } from '@ionic/angular/standalone';
+import { 
+  IonHeader, 
+  IonToolbar, 
+  IonTitle, IonCardContent,
+  IonContent, IonCard, IonCardHeader, IonCardTitle, IonItem, IonInput, IonButton 
+} from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { HeaderComponent } from '../header/header.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, IonButton, IonLabel, IonItem, IonCard, IonCardContent, IonCardTitle, IonContent, IonInput, HeaderComponent,  CommonModule, FormsModule]
+  standalone: true,
+  imports: [IonButton, IonInput, IonCardContent, IonItem, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonTitle, IonContent, HeaderComponent, ExploreContainerComponent],
 })
-
 export class Tab2Page {
-  a!: number;
-  b!: number;
   numbers: number[] = [];
   count: number = 0;
 
-  calculate() {
-    this.numbers = [];
-    this.count = 0;
-    for (let i = this.a; i <= this.b; i++) {
-      if (i % 8 === 7 && this.isFirstDigitEven(i)) {
-        this.numbers.push(i);
-        this.count++;
+  calculate(a1: any, b1: any) {
+    try {
+      let a = parseInt(a1, 10);
+      let b = parseInt(b1, 10);
+
+      // Валідація введення
+      if (isNaN(a) || isNaN(b) || a > b) {
+        throw new Error('Невірний діапазон чисел!');
       }
+
+      // Знаходимо числа, що відповідають умові
+      this.numbers = [];
+      for (let i = a; i <= b; i++) {
+        if (i % 2 === 0 && i % 3 === 2) {
+          this.numbers.push(i);
+        }
+      }
+
+      this.count = this.numbers.length;
+    } catch (error) {
+      this.numbers = [];
+      this.count = 0;
+      console.log(error);
     }
   }
 
-  isFirstDigitEven(num: number): boolean {
-    let firstDigit = parseInt(num.toString()[0]);
-    return firstDigit % 2 === 0;
-  }
+  constructor() {}
 }

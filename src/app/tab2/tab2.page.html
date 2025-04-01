@@ -1,40 +1,32 @@
 <app-header name="Лабораторна робота 1"></app-header>
 <ion-content [fullscreen]="true">
   <ion-card color="light">
-    <ion-card-title>Завдання 3</ion-card-title>
+    <ion-card-header>
+      <ion-card-title>Завдання 2</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <p>
-        На заданому проміжку чисел [a, b] підрахуйте кількість чисел, які
-        при діленні на 8 дають в остачі 7, якщо їх перші цифри парні. Потрібно
-        вивести як самі числа так і результати обрахунку.
+        На заданому проміжку чисел [a, b] знайдіть кількість чисел, 
+        кратних 2, які при діленні на 3 дають в остачі 2. 
+        Виведіть самі числа та результати обчислення.
       </p>
-      
+
       <ion-item>
-        <ion-input
-          label="Введіть a"
-          type="number"
-          labelPlacement="stacked"
-          id="number1"
-          value="0"
-          [(ngModel)]="a"
-        ></ion-input>
+        <ion-input label="Початкове число (a)" labelPlacement="stacked" type="number" value="1" #Inputa></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          label="Введіть b"
-          type="number"
-          labelPlacement="stacked"
-          id="number1"
-          value="0"
-          [(ngModel)]="b"
-        ></ion-input>
+        <ion-input label="Кінцеве число (b)" labelPlacement="stacked" type="number" value="10" #Inputb></ion-input>
       </ion-item>
-      
-      <ion-button expand="full" (click)="calculate()">Обчислити</ion-button>
-      <p>Кількість чисел: {{ count }}</p>
-      <p>Числа: {{ numbers.join(', ') }}</p>
 
+      <ion-button expand="block" (click)="calculate(Inputa.value, Inputb.value)">Розрахунок</ion-button>
+
+      <ion-item>
+        <p>Знайдені числа: {{ numbers.join(', ') }}</p>
+      </ion-item>
+      <ion-item>
+        <p>Кількість таких чисел: {{ count }}</p>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

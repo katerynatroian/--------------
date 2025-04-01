@@ -1,27 +1,36 @@
 <app-header name="Лабораторна робота 1"></app-header>
+
 <ion-content [fullscreen]="true">
   <ion-card color="light">
-    <ion-card-title>Завдання 3</ion-card-title>
-    <ion-card-content>
-      <p>
-        Згенерувати матрицю розміром NxN. Виокреміть всі елементи,
-        що належать непарним рядкам і менші за 50.
+    <ion-card-header>
+      <ion-card-title>Генерація матриці</ion-card-title>
+    </ion-card-header>
+
+    <p>Введіть розмір матриці N:</p>
+
+    <ion-item class="p-2">
+      <ion-input label="Розмір N" labelPlacement="stacked" type="number" min="1" #InputN></ion-input>
+    </ion-item>
+    
+    <ion-button expand="block" class="mt-3 mb-3" (click)="generateMatrix(InputN.value)">Згенерувати</ion-button>
+    
+
+    <ion-card-header>
+      <ion-card-title>Результат:</ion-card-title>
+    </ion-card-header>
+
+    <div *ngIf="matrix.length > 0">
+      <table>
+        <tr *ngFor="let row of matrix; let i = index" 
+            [ngStyle]="{'background-color': (i % 2 === 0 && rowSums[i] > 50) ? '#ffcccb' : 'white'}">
+          <td *ngFor="let num of row">{{ num }}</td>
+        </tr>
+      </table>
+
+      <h3>Максимальні елементи непарних рядків:</h3>
+      <p *ngFor="let max of maxOddRows; let i = index">
+        Рядок {{ 2*i + 1 }}: {{ max }}
       </p>
-
-      <ion-item>
-        <ion-label position="floating">Розмір N</ion-label>
-        <ion-input type="number" [(ngModel)]="n"></ion-input>
-      </ion-item>
-
-      <ion-button (click)="generateMatrix()">Згенерувати</ion-button>
-      
-      <div *ngIf="matrix.length">
-        <h3>Матриця:</h3>
-        <div *ngFor="let row of matrix">{{ row.join(', ') }}</div>
-        <h3>Числа з непарних рядків &lt; 50:</h3>
-        <p>{{ filteredNumbers.join(', ') }}</p>
-      </div>
-
-    </ion-card-content>
+    </div>
   </ion-card>
 </ion-content>
