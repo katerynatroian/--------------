@@ -19,7 +19,7 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class AbstractClassPage implements OnInit {
   transports: WaterTransport[] = [];
-  fastestCount: number = 5;  // Додано для уникнення помилки
+  fastestCount: number = 5; 
 
   async loadTransports() {
     try {
@@ -32,7 +32,7 @@ export class AbstractClassPage implements OnInit {
           : new Lodka(data.name, data.speed, data.capacity, data.isRowing);
       });
 
-      this.findFastest(this.fastestCount); // Автоматично позначаємо найшвидші після завантаження
+      this.findFastest(this.fastestCount); 
     } catch (error) {
       console.error("Помилка завантаження транспорту:", error);
     }
