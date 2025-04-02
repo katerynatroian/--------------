@@ -8,22 +8,22 @@ describe('transportFactory', () => {
   it('should create a Lodka instance via factory', () => {
     const transport = transportFactory.getTransport(transporNameMap['Lodka'], 15, 4, true);
     expect(transport).toBeInstanceOf(Lodka);
-    expect(transport.name).toBe('Lodka');
+    expect(transport.name).toBe('Лодка');
   });
 
   it('should create a Kater instance via factory', () => {
     const transport = transportFactory.getTransport(transporNameMap['Kater'], 30, 6, 'Diesel');
     expect(transport).toBeInstanceOf(Kater);
-    expect(transport.name).toBe('Kater');
+    expect(transport.name).toBe('Катер');
   });
 
   it('should create a Porom instance via factory', () => {
     const transport = transportFactory.getTransport(transporNameMap['Porom'], 25, 10, 3);
     expect(transport).toBeInstanceOf(Porom);
-    expect(transport.name).toBe('Porom');
+    expect(transport.name).toBe('Пором');
   });
 
   it('should throw error for unknown transport type', () => {
-    expect(() => transportFactory.getTransport('UnknownType', 20, 5, 'Invalid')).toThrowError('Unknown transport');
+    expect(() => transportFactory.getTransport('Unknown transport', 20, 5, 'Invalid')).toThrowError('Unknown transport');
   });
 });
