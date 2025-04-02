@@ -1,110 +1,124 @@
 {
-    "waterTransport": [
-      {
-        "type": "Катер",
-        "name": "SpeedBoat 3000",
-        "speed": 85.5,
-        "capacity": 6,
-        "engineType": "Petrol"
-      },
-      {
-        "type": "Катер",
-        "name": "Sea Hawk",
-        "speed": 70.0,
-        "capacity": 8,
-        "engineType": "Diesel"
-      },
-      {
-        "type": "Катер",
-        "name": "Ocean Runner",
-        "speed": 90.2,
-        "capacity": 10,
-        "engineType": "Electric"
-      },
-      {
-        "type": "Катер",
-        "name": "Wave Crusher",
-        "speed": 75.4,
-        "capacity": 5,
-        "engineType": "Hybrid"
-      },
-      {
-        "type": "Катер",
-        "name": "Thunder Marine",
-        "speed": 95.0,
-        "capacity": 7,
-        "engineType": "Petrol"
-      },
-      {
-        "type": "Катер",
-        "name": "Aqua Storm",
-        "speed": 88.3,
-        "capacity": 6,
-        "engineType": "Diesel"
-      },
-      {
-        "type": "Лодка",
-        "name": "River Explorer",
-        "speed": 12.5,
-        "capacity": 2,
-        "isRowing": true
-      },
-      {
-        "type": "Лодка",
-        "name": "Lake Glide",
-        "speed": 10.0,
-        "capacity": 3,
-        "isRowing": false
-      },
-      {
-        "type": "Лодка",
-        "name": "Blue Wave",
-        "speed": 8.4,
-        "capacity": 4,
-        "isRowing": true
-      },
-      {
-        "type": "Лодка",
-        "name": "Fisherman’s Friend",
-        "speed": 11.2,
-        "capacity": 3,
-        "isRowing": true
-      },
-      {
-        "type": "Лодка",
-        "name": "Coastal Drift",
-        "speed": 9.8,
-        "capacity": 5,
-        "isRowing": false
-      },
-      {
-        "type": "Лодка",
-        "name": "Sunny Bay",
-        "speed": 7.6,
-        "capacity": 2,
-        "isRowing": true
-      },
-      {
-        "type": "Лодка",
-        "name": "Wild Waters",
-        "speed": 13.0,
-        "capacity": 4,
-        "isRowing": false
-      },
-      {
-        "type": "Катер",
-        "name": "Ocean King",
-        "speed": 85.7,
-        "capacity": 9,
-        "engineType": "Electric"
-      },
-      {
-        "type": "Катер",
-        "name": "Marine Speedster",
-        "speed": 78.9,
-        "capacity": 6,
-        "engineType": "Hybrid"
-      }
-    ]
-  }
-  
+  "waterTransport": [
+    {
+      "name": "Lodka",
+      "speed": 15,
+      "capacity": 4,
+      "extra": true
+    },
+    {
+      "name": "Kater",
+      "speed": 30,
+      "capacity": 6,
+      "extra": "Diesel"
+    },
+    {
+      "name": "Porom",
+      "speed": 25,
+      "capacity": 10,
+      "extra": 3
+    },
+    {
+      "name": "Lodka",
+      "speed": 18,
+      "capacity": 5,
+      "extra": false
+    },
+    {
+      "name": "Kater",
+      "speed": 40,
+      "capacity": 8,
+      "extra": "Electric"
+    },
+    {
+      "name": "Porom",
+      "speed": 22,
+      "capacity": 12,
+      "extra": 4
+    },
+    {
+      "name": "Lodka",
+      "speed": 12,
+      "capacity": 2,
+      "extra": true
+    },
+    {
+      "name": "Kater",
+      "speed": 50,
+      "capacity": 10,
+      "extra": "Petrol"
+    },
+    {
+      "name": "Porom",
+      "speed": 28,
+      "capacity": 15,
+      "extra": 5
+    },
+    {
+      "name": "Lodka",
+      "speed": 14,
+      "capacity": 3,
+      "extra": false
+    },
+    {
+      "name": "Kater",
+      "speed": 35,
+      "capacity": 7,
+      "extra": "Diesel"
+    },
+    {
+      "name": "Porom",
+      "speed": 24,
+      "capacity": 8,
+      "extra": 3
+    },
+    {
+      "name": "Lodka",
+      "speed": 16,
+      "capacity": 6,
+      "extra": true
+    },
+    {
+      "name": "Kater",
+      "speed": 60,
+      "capacity": 12,
+      "extra": "Hybrid"
+    },
+    {
+      "name": "Porom",
+      "speed": 27,
+      "capacity": 18,
+      "extra": 6
+    },
+    {
+      "name": "Lodka",
+      "speed": 20,
+      "capacity": 7,
+      "extra": false
+    },
+    {
+      "name": "Kater",
+      "speed": 45,
+      "capacity": 9,
+      "extra": "Electric"
+    },
+    {
+      "name": "Porom",
+      "speed": 30,
+      "capacity": 20,
+      "extra": 7
+    },
+    {
+      "name": "Lodka",
+      "speed": 19,
+      "capacity": 8,
+      "extra": true
+    },
+    {
+      "name": "Kater",
+      "speed": 38,
+      "capacity": 11,
+      "extra": "Gas"
+    }
+  ]
+}

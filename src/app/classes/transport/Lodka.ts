@@ -1,11 +1,11 @@
 import { WaterTransport } from './waterTransport';
 
 export class Lodka extends WaterTransport {
-  constructor(name: string, speed: number, capacity: number, public isRowing: boolean) {
-    super(name, speed, capacity);
+  constructor(name: string, speed: number, capacity: number, extra: boolean) {
+    super(name, speed, capacity, extra);
   }
 
   override displayInfo(): string {
-    return 'Лодка  | ' +super.displayInfo() + `, Веслова: ${this.isRowing ? 'Так' : 'Ні'}`;
+    return super.displayInfo() + `, Веслова: ${this.extra ? 'Так' : 'Ні'}`;
   }
 }

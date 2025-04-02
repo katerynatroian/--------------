@@ -31,6 +31,18 @@
         "termDays": 30
       },
       {
+        "code": "B005",
+        "readerId": "R126",
+        "issueDate": "2024-12-28T00:00:00Z",
+        "termDays": 30
+      },
+      {
+        "code": "B005",
+        "readerId": "R126",
+        "issueDate": "2024-12-28T00:00:00Z",
+        "termDays": 30
+      },
+      {
         "code": "B006",
         "readerId": "R124",
         "issueDate": "2025-01-01T00:00:00Z",

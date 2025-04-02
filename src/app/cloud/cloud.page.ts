@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem, IonButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonList, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonCardHeader, IonCardTitle, IonCardContent, IonCard } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
 import { Book } from '../classes/books/book';
 import { BookList } from '../classes/books/book_list';
@@ -15,7 +15,7 @@ import { BookList } from '../classes/books/book_list';
   templateUrl: './cloud.page.html',
   styleUrls: ['./cloud.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonList, IonCard, IonCardContent, IonCardTitle, HeaderComponent, IonCardHeader, IonButton, IonItem, IonInput, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HttpClientModule]
+  imports: [IonCard, IonCardContent, IonCardTitle, HeaderComponent, IonCardHeader, IonContent, CommonModule, FormsModule, HttpClientModule]
 })
 export class CloudPage implements OnInit {
   @ViewChild('barCanvas') private barCanvas?: ElementRef;
@@ -23,7 +23,7 @@ export class CloudPage implements OnInit {
   books = new BookList();
   overdueBooks: Book[] = [];
   onTimeBooks: Book[] = [];
-  dataUrl = 'assets/books.json'; // Шлях до файлу JSON з даними
+  dataUrl = 'assets/books.json'; 
   loading: any;
   barChart: any;
 
@@ -44,7 +44,6 @@ export class CloudPage implements OnInit {
     await alert.present();
   }
 
-  // Завантаження даних з JSON
   async load() {
     this.loading = await this.loadingController.create({
       spinner: 'crescent',
@@ -67,18 +66,15 @@ export class CloudPage implements OnInit {
           console.log((e as Error).message);
         }
 
-        // Розділення на прострочені і вчасно
         const { overdue, onTime } = this.books.splitBooksByDueDate(new Date());
         this.overdueBooks = overdue;
         this.onTimeBooks = onTime;
 
-        // Побудова графіку
         this.drawBarChart();
         this.loading.dismiss();
       });
   }
 
-  // Побудова графіка
   drawBarChart() {
     if (this.barChart instanceof Chart) {
       this.barChart.destroy();
