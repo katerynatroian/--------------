@@ -13,9 +13,9 @@ describe('TabService', () => {
     expect(service).toBeTruthy();
   });
 
-  it ('Табулювання значення х = 0.1 та у = 0.9983', () => {
+  it ('Табулювання значення х = 0.1 та у = 0.0997', () => {
     let x = 0.1;
-    let y = 0.9983;
+    let y = 0.0997;
     let xy = service.getTab();
     let y1: number | undefined = 5;
     y1 = xy.y[xy.x.indexOf(x.toFixed(2))];
